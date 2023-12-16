@@ -2,13 +2,13 @@
  * This is the main entrypoint to your Probot app
  * @param {import('probot').Probot} app
  */
-module.exports = (app) => {
-  app.log.info("Yay, the app was loaded!");
+const { main } = require("./main");
 
-  app.on("issues.opened", async (context) => {
-    const issueComment = context.issue({
-      body: "Thanks for opening this issue!",
-    });
-    return context.octokit.issues.createComment(issueComment);
-  });
+module.exports = (app) => {
+  app.log.info("Yay, code-review bot was loaded!");
+
+  // const { state } = app;
+  // app.log.info(state);
+
+  main(app);
 };
