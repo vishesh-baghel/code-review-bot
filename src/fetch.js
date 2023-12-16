@@ -33,11 +33,19 @@ const appOctokit = new Octokit({
 });
 
 async function fetchDetails(app, resource) {
-  app.log.info("fetching details for resource: " + resource);
-  const { data } = await appOctokit.request(resource);
+  try {
+    app.log.info("fetching details for resource: " + resource);
+    const { data } = await appOctokit.request(resource);
 
-  const { data1 } = await appOctokit.request("GET /app/installations");
-  return data;
+    const { data1 } = await appOctokit.request("GET /app/installations");
+    return data;
+  } catch (err) {
+    app.log.error({
+      message:
+        "Error while fetching resource details for resource url: " + resource,
+      error: err,
+    });
+  }
 }
 
 async function fetchPRDetails(app) {
