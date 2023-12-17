@@ -35,8 +35,6 @@ async function fetchDetails(app, resource) {
     app.log.info("fetching details for resource: " + resource);
     const { data } = await appOctokit.request(resource);
 
-    // const { data1 } = await appOctokit.request("/");
-
     return data;
   } catch (err) {
     app.log.error({
