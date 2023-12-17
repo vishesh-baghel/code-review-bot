@@ -16,6 +16,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "mysql2": "^3.6.5",
+    "nodemon": "^3.0.2",
+    "octokit": "^3.1.2",
     "probot": "^12.2.4"
   },
   "devDependencies": {

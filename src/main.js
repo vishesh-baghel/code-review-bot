@@ -1,18 +1,37 @@
 const { fetchPRDetails, fetchDetails } = require("./fetch");
+const listeningForPREvents = require("./eventListener/pullRequestListener");
+const configs = require("./configs/main.configs.json");
+const { connectDB } = require("./dbConnection");
+const listeningForAppInstallationEvents = require("./eventListener/appInstallationListener");
 
 function main(app) {
+  let db;
+
+  connectDB(app).then((connection) => {
+    db = connection;
+  });
+
   fetchPRDetails(app).then((pullRequest) => {
     // app.log.info(pullRequest);
   });
 
   listeningForPREvents(app);
 
+  listeningForAppInstallationEvents(app).then((data) => {
+    app.log.info(data);
+  });
+
   fetchDetails(app, "/app").then((data) => {
+    app.log.info("details");
+    // app.log.info(data);
+  });
+
+  fetchDetails(app, configs.endpoints.app_details).then((data) => {
     app.log.info("Github app details");
     // app.log.info(data);
   });
 
-  fetchDetails(app, "/app/installations").then((data) => {
+  fetchDetails(app, configs.endpoints.all_installations_list).then((data) => {
     app.log.info("Installation details");
     // app.log.info(data);
   });
@@ -23,47 +42,4 @@ function main(app) {
   });
 }
 
-function commentBot(app, context, comment) {
-  const commentToAdd = context.issue({
-    body: comment,
-  });
-
-  app.log.info(`Added comment on the PR as: ${commentToAdd.body}`);
-
-  return context.octokit.issues.createComment(commentToAdd);
-}
-
-function listeningForPREvents(app) {
-  try {
-    app.log.info("Listening for PR events!");
-    let data = {};
-
-    app.on(
-      ["pull_request.opened", "pull_request.synchronize"],
-      async (context) => {
-        app.log.info("Received a PR open event");
-        // app.log.info(context);
-        const comment = "Thanks for opening this PR";
-
-        data = {
-          installationId: context.payload.installation.id,
-          installationNodeId: context.payload.installation.node_id,
-          issueUrl: context.payload.pull_request._links.issue.href,
-          issueCommentsUrl: context.payload.pull_request._links.comments.href,
-          reviewCommentsUrl:
-            context.payload.pull_request._links.review_comments.href,
-          commitsUrl: context.payload.pull_request._links.commits.href,
-          pullRequestUrl: context.payload.pull_request.url,
-        };
-        commentBot(app, context, comment);
-        app.log.info(`Sending data to the risk-scoring-module as: ${data}`);
-        return data;
-      }
-    );
-  } catch (err) {
-    app.log.error({ message: "Error occurred while listening to PR events" });
-    app.log.error(err);
-  }
-}
-
-module.exports = { commentBot, main };
+module.exports = { main };

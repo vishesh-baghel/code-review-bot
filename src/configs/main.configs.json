@@ -1,0 +1,6 @@
+{
+  "endpoints": {
+    "app_details": "/app",
+    "all_installations_list": "/app/installations"
+  }
+}

@@ -26,8 +26,6 @@ const appOctokit = new Octokit({
   auth: {
     appId: appId,
     privateKey: privateKey,
-    // optional: this will make appOctokit authenticate as app (JWT)
-    //           or installation (access token), depending on the request URL
     // installationId: 45108724,
   },
 });
@@ -37,14 +35,14 @@ async function fetchDetails(app, resource) {
     app.log.info("fetching details for resource: " + resource);
     const { data } = await appOctokit.request(resource);
 
-    const { data1 } = await appOctokit.request("GET /app/installations");
+    // const { data1 } = await appOctokit.request("/");
+
     return data;
   } catch (err) {
     app.log.error({
-      message:
-        "Error while fetching resource details for resource url: " + resource,
-      error: err,
+      message: `Error while fetching resource details for resource url: ${resource}`,
     });
+    app.log.error(err);
   }
 }
 
