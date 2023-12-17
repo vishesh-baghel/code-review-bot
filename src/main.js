@@ -23,7 +23,6 @@ function main(app) {
 
   fetchDetails(app, "/app").then((data) => {
     app.log.info("details");
-
     // app.log.info(data);
   });
 
