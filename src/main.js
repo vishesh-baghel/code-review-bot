@@ -36,10 +36,10 @@ function main(app) {
     // app.log.info(data);
   });
 
-  fetchDetails(app, "/installation/repositories").then((data) => {
-    app.log.info("Repository details");
-    // app.log.info(data);
-  });
+  // fetchDetails(app, "/installation/repositories").then((data) => {
+  //   app.log.info("Repository details");
+  //   app.log.info(data);
+  // });
 }
 
 module.exports = { main };

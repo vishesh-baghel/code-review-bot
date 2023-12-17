@@ -4,7 +4,7 @@ function listeningForAppInstallationEvents(app) {
       app.log.info("Listening for app installation events");
 
       app.on("installation.created", async (context) => {
-        app.log.info("Received a app installation event");
+        app.log.info("Received an app installation event");
 
         resolve(context.payload);
       });
