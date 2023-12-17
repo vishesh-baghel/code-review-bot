@@ -3,7 +3,7 @@ service: code-review-service
 app: code-review-bot
 org: visheshbaghel
 
-frameworkVersion: "2"
+frameworkVersion: "3.38.0"
 useDotenv: true
 
 provider:
