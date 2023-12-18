@@ -7,6 +7,10 @@ const listeningForAppInstallationEvents = require("./eventListener/appInstallati
 function main(app) {
   let db;
 
+  setInterval(() => {
+    app.log.info("The app is active");
+  }, 1000);
+
   connectDB(app).then((connection) => {
     db = connection;
   });
