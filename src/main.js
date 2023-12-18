@@ -11,9 +11,9 @@ function main(app) {
     app.log.info("The app is active");
   }, 1000);
 
-  connectDB(app).then((connection) => {
-    db = connection;
-  });
+  // connectDB(app).then((connection) => {
+  //   db = connection;
+  // });
 
   fetchPRDetails(app).then((pullRequest) => {
     // app.log.info(pullRequest);
