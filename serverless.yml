@@ -1,6 +1,6 @@
 service: code-review-service
 
-app: code-review-bot
+app: code-review-service-dev-webhooks
 org: visheshbaghel
 
 frameworkVersion: "3.38.0"
