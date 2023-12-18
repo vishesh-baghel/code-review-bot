@@ -25,7 +25,7 @@ const appOctokit = new Octokit({
   authStrategy: createAppAuth,
   auth: {
     appId: appId,
-    privateKey: privateKey,
+    privateKey: privateKey.replace(/\\n/g, "\n"),
     // installationId: 45108724,
   },
 });
