@@ -1,10 +1,5 @@
 # code-review-bot
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that a bot that helps in PR reviews
-
-## Setup
-
-```sh
 # Install dependencies
 npm install
 
